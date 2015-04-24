@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Collections.ObjectModel;
 
 namespace NimCSharp
 {
@@ -20,9 +21,50 @@ namespace NimCSharp
     /// </summary>
     public partial class OpponentList : Page
     {
+        ObservableCollection<OpponentData> OpData = new ObservableCollection<OpponentData>();
+
         public OpponentList()
         {
+            // Add some temp values
+            OpData.Add(new OpponentData
+            {
+                opName = "Opponent 1",
+                ipAddr = "10.56.0.2"
+            });
+            OpData.Add(new OpponentData
+            {
+                opName = "Opponent 2",
+                ipAddr = "10.56.0.2"
+            });
+            OpData.Add(new OpponentData
+            {
+                opName = "Opponent 3",
+                ipAddr = "10.56.0.2"
+            });
+            OpData.Add(new OpponentData
+            {
+                opName = "Opponent 4",
+                ipAddr = "10.56.0.2"
+            });
+
             InitializeComponent();
+        }
+
+        public ObservableCollection<OpponentData> OpponentCollection
+        {
+            get { return OpData; }
+        }
+
+        public class OpponentData
+        {
+            public string opName { get; set; }
+            public string ipAddr { get; set; }
+            //public Button inviteBtn;
+        }
+
+        private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            
         }
     }
 }
