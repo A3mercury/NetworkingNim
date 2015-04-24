@@ -12,7 +12,8 @@ int server_main(int argc, char *argv [], std::string playerName)
 	std::string host;
 	std::string port;
 	char response_str[MAX_SEND_BUF];
-
+	sockaddr_in clientSocketInfo;       // holds client's socket information
+	int clen = sizeof(clientSocketInfo);   // size of client's sockaddr_in struct
 	s = passivesock(UDPPORT_NIM, "udp");
 
 	std::cout << std::endl << "Waiting for a challenge..." << std::endl;
@@ -42,7 +43,7 @@ int server_main(int argc, char *argv [], std::string playerName)
 			std::cout << "Accept challenge? ";
 			std::cin >> challengeReply[10];
 
-			if (stricmp(challengeReply, "no") == 0 || stricmp(challengeReply, "") == 0)
+			if (_stricmp(challengeReply, "no") == 0 || _stricmp(challengeReply, "") == 0)
 			{
 				UDP_send(s, "NO", 3, (char*) host.c_str(), (char*) port.c_str());
 			}
@@ -68,14 +69,14 @@ int server_main(int argc, char *argv [], std::string playerName)
 					else
 					{
 						newDatagram = true;		// if not identical to previous one, keep it!
-						if (strcmpi(buf, "GREAT!") == 0)
+						if (_strcmpi(buf, "GREAT!") == 0)
 						{
 							closesocket(s);
 							SOCKET listeningSocket = passivesock(TCPPORT_NIM, "tcp");
 						//s = passivesock(UDPPORT_NIM, "TCP")
 							sockaddr socket_addr;
 							int len_socket_addr = sizeof(socket_addr);
-							SOCKET acceptedSocket = accept(listeningSocket,(LPSOCKADDR) socket_addr, len_socket_addr);
+							SOCKET acceptedSocket = accept(listeningSocket, (LPSOCKADDR) &clientSocketInfo, &clen);
 							play_Nim(acceptedSocket, false, (char *) playerName.c_str());
 						}
 					}
