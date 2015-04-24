@@ -1,0 +1,89 @@
+// server_main.cpp
+//   This function serves as the "main" function for the server-side
+#include "nim.h"
+#include <iostream>
+#include <string>
+#include <WinSock2.h>
+
+int server_main(int argc, char *argv [], std::string playerName)
+{
+	SOCKET s;
+	char buf[MAX_RECV_BUF];
+	std::string host;
+	std::string port;
+	char response_str[MAX_SEND_BUF];
+
+	s = passivesock(UDPPORT_NIM, "udp");
+
+	std::cout << std::endl << "Waiting for a challenge..." << std::endl;
+	int len = UDP_recv(s, buf, MAX_RECV_BUF, (char*) host.c_str(), (char*) port.c_str());
+	std::cout << "Received: " << buf << std::endl;  // For DEBUG purposes
+
+	bool finished = false;
+	while (!finished) {
+		if (strcmp(buf, NIM_QUERY) == 0)
+		{
+			// Respond to name query
+			strcpy_s(response_str, NIM_NAME);
+			strcat_s(response_str, playerName.c_str()); //Name=Bob\0
+			UDP_send(s, response_str, strlen(response_str) + 1, (char*) host.c_str(), (char*) port.c_str());
+			std::cout << "Sending: " << response_str << std::endl;	// DEBUG
+
+		}
+		else if (strncmp(buf, NIM_CHALLENGE, strlen(NIM_CHALLENGE)) == 0) 
+		{
+			// Received a challenge  
+			char *startOfName = strstr(buf, NIM_CHALLENGE);
+			if (startOfName != NULL) {
+				std::cout << std::endl << "You have been challenged by " << startOfName + strlen(NIM_CHALLENGE) << std::endl;
+			}
+
+			char challengeReply[10];
+			std::cout << "Accept challenge? ";
+			std::cin >> challengeReply[10];
+
+			if (stricmp(challengeReply, "no") == 0 || stricmp(challengeReply, "") == 0)
+			{
+				UDP_send(s, "NO", 3, (char*) host.c_str(), (char*) port.c_str());
+			}
+			else
+			{
+				UDP_send(s, "YES", 4, (char*) host.c_str(), (char*) port.c_str());
+
+				char previous_buf[MAX_RECV_BUF];		strcpy_s(previous_buf, buf);
+				std::string previous_host;				previous_host = host;
+				std::string previous_port;				previous_port = port;
+
+				bool newDatagram = false;
+				int status = wait(s, 5, 0);	// We'll wait a second to see if we receive another datagram
+				while (!newDatagram && status > 0) 
+				{
+					len = UDP_recv(s, buf, MAX_RECV_BUF, (char*) host.c_str(), (char*) port.c_str());
+					std::cout << "Received: " << buf << std::endl;	// DEBUG
+					if (strcmp(buf, previous_buf) == 0 &&		// If this datagram is identical to previous one, ignore it.
+						host == previous_host &&
+						port == previous_port) {
+						status = wait(s, 1, 0);			// Wait another second (still more copies?)
+					}
+					else
+					{
+						newDatagram = true;		// if not identical to previous one, keep it!
+						if (strcmpi(buf, "GREAT!") == 0)
+						{
+							closesocket(s);
+							SOCKET listeningSocket = passivesock(TCPPORT_NIM, "tcp");
+						//s = passivesock(UDPPORT_NIM, "TCP")
+							sockaddr socket_addr;
+							int len_socket_addr = sizeof(socket_addr);
+							SOCKET acceptedSocket = accept(listeningSocket,(LPSOCKADDR) socket_addr, len_socket_addr);
+							play_Nim(acceptedSocket, false, (char *) playerName.c_str());
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	closesocket(s);
+	return 0;
+}
