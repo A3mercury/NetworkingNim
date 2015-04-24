@@ -34,5 +34,11 @@ namespace NimCSharp
             if(UsernameBox.Text != "" && UsernameBox.Text != "Username")
                 MainWindow._MainFrame.Navigate(new OpponentList());
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            // go to the game setup page for testing
+            MainWindow._MainFrame.Navigate(new GameSetup());
+        }
     }
 }

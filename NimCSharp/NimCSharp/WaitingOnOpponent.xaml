@@ -1,0 +1,31 @@
+﻿<Page x:Class="NimCSharp.WaitingOnOpponent"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      mc:Ignorable="d" 
+      d:DesignHeight="400" d:DesignWidth="600"
+	Title="WaitingOnOpponent">
+    <Page.Resources>
+        <Style x:Key="Red-Button" TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Name="BorderButton" CornerRadius="10" BorderThickness="3" Background="#BF262D" BorderBrush="#76171B">
+                            <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="FontSize" Value="12pt"/>
+            <Setter Property="FontFamily" Value="Helvetica"/>
+            <Setter Property="Foreground" Value="#FFD9D0C7"/>
+        </Style>
+    </Page.Resources>
+
+    <Grid>
+        <Rectangle Fill="#E1D9D2" HorizontalAlignment="center" Stroke="#AEA69F" StrokeThickness="3" VerticalAlignment="Top" Height="52" Width="520" Margin="40,162,40,0"/>
+        <Label Content="Waiting on 'Opponent Username' to setup the game." Foreground="#454545" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="15" Margin="58,171,173,0" Width="369"/>
+        <Button Style="{StaticResource Red-Button}" Content="Cancel" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="450,174,0,0" Click="CancelGame"/>
+    </Grid>
+</Page>

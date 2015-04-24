@@ -1,12 +1,11 @@
-﻿<Page x:Class="NimCSharp.OpponentList"
+﻿<Page x:Class="NimCSharp.GameSetup"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      DataContext="{Binding RelativeSource={RelativeSource Self}}"
       mc:Ignorable="d" 
       d:DesignHeight="400" d:DesignWidth="600"
-	  Title="OpponentList">
+	Title="GameSetup">
 
     <Page.Resources>
         <Style x:Key="Blue-Button" TargetType="Button">
@@ -16,30 +15,6 @@
                         <Border Name="BorderButton" CornerRadius="10" BorderThickness="3" Background="#FF2669BF" BorderBrush="#FF0A2F5F">
                             <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsPressed" Value="true">
-                                <Setter Property="Background" Value="#1F57A0"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-            <Setter Property="FontSize" Value="12pt"/>
-            <Setter Property="FontFamily" Value="Helvetica"/>
-            <Setter Property="Foreground" Value="#FFD9D0C7"/>
-        </Style>
-        <Style x:Key="Red-Button" TargetType="Button">
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border Name="BorderButton" CornerRadius="10" BorderThickness="3" Background="#BF262D" BorderBrush="#76171B">
-                            <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsPressed" Value="true">
-                                <Setter Property="Background" Value="#1F57A0"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
@@ -65,14 +40,16 @@
         </Style>
     </Page.Resources>
     <Grid>
-        <Label Content="CHOOSE A CHALLENGER" Foreground="#FF2669BF" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="/NimCSharp;component/#Intro" FontSize="40" Margin="40,0" Width="512"/>
-        <ListView ItemsSource="{Binding OpponentCollection}"
+        <Label Content="SETUP THE GAME" Foreground="#FF2669BF" TextBlock.TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="/NimCSharp;component/#Intro" FontSize="40" Margin="40,0" Width="512"/>
+        <Label x:Name="Challenged_Label" Content="How many Piles would you like? (between 3 - 9)" Foreground="#454545" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="15" Margin="44,53,44,0" Width="512"/>
+        <TextBox HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="3" VerticalAlignment="Top" Width="26" Margin="387,58,0,0" Padding="4,3,0,0"/>
+        <ListView ItemsSource="{Binding PileCountCollection}"
                   Foreground="#454545"
                   HorizontalAlignment="Center" 
                   ScrollViewer.HorizontalScrollBarVisibility="Hidden"
-                  Width="520" Height="219" 
+                  Width="520" Height="243" 
                   VerticalAlignment="Top" 
-                  Margin="40,63,40,0"
+                  Margin="40,88,40,0"
                   Style="{StaticResource ListBoxBorder}">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
@@ -87,10 +64,6 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Rectangle x:Name="Challenged" Fill="#E1D9D2" HorizontalAlignment="center" Stroke="#AEA69F" StrokeThickness="3" VerticalAlignment="Top" Height="52" Width="520" Margin="40,289,40,0" Grid.Row="1" Grid.Column="1"/>
-        <Label x:Name="Challenged_Label" Content="'Opponent Username' has invited you to a game." Foreground="#454545" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="15" Margin="44,298,44,0" Width="512"/>
-        <Button x:Name="Challenged_Accept" Style="{StaticResource Blue-Button}" Content="Accept" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="387,301,0,0" Click="AcceptGameInvite"/>
-        <Button x:Name="Challenged_Decline" Style="{StaticResource Red-Button}" Content="Decline" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="473,301,0,0" Click="DeclineGameInvite"/>
-
+        <Button x:Name="Challenged_Accept" Style="{StaticResource Blue-Button}" Content="Start Game" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Margin="460,346,0,0" Click="StartGame"/>
     </Grid>
 </Page>
