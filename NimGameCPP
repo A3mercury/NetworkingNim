@@ -1,1 +1,149 @@
+// Game.h
+============
+#include<iostream>
+#include<string>
 
+using namespace std;
+
+class Game
+{
+public:
+	Game();
+	~Game();
+	int numPiles;
+	int rocksInPile[9];
+	string inputCommand;
+	// tcpPacket will either be in "mnn", "CSome comment" (80 bytes max),  or "F"
+	string tcpPacket;
+	// boardConfig will be received as a packet (on the client machine) in “mn1n1n2n2n3n3nmnm” format
+	// This information will be used to create the gameboard
+	string boardConfig;
+	void parseBoardConfig();
+	void displayErrorMessage();
+	void displayGameBoard();
+	void checkForWinner();
+	void getCommand();
+private:
+	int pileToRemove;
+	int numberToRemove;
+};
+
+// Game.cpp
+==============
+#include"Game.h"
+#include<stdio.h>
+
+Game::Game()
+{
+}
+
+Game::~Game()
+{
+}
+
+void Game::parseBoardConfig()
+{
+	int count = 0;
+	string numHolder;
+
+	numPiles = (boardConfig[0] - '0');
+	for (int i = 1; i < boardConfig.length(); i += 2)
+	{
+		numHolder = boardConfig.substr(i, 2);
+		rocksInPile[count] = stoi(numHolder);
+		count++;
+	}
+}
+
+void Game::displayErrorMessage()
+{
+	cout << endl;
+	cout << "**************************" << endl;
+	cout << "*  Invalid move, please  *" << endl;
+	cout << "* choose a different one *" << endl;
+	cout << "**************************" << endl;
+	cout << endl;
+	displayGameBoard();
+}
+
+void Game::displayGameBoard()
+{
+	cout << endl;
+	cout << "                                   ~ NIM GAME ~                                 ";
+	cout << "--------------------------------------------------------------------------------";
+	for (int i = 0; i < numPiles; i++)
+	{
+		cout << i + 1 << ") ";
+		for (int j = 0; j < rocksInPile[i]; j++)
+		{
+			cout << "@";
+		}
+		cout << endl;
+	}
+	cout << "--------------------------------------------------------------------------------";
+	cout << endl;
+	getCommand();
+}
+
+void Game::checkForWinner()
+{
+	bool checkWinner = true;
+	
+	for (int i = 0; i < numPiles; i++)
+	{
+		if (rocksInPile[i] > 0)
+		{
+			checkWinner = false;
+		}
+	}
+
+	if (checkWinner == true)
+	{
+		cout << "You win!" << endl;
+		// Connection will be cut off at this point, other user will be informed that they lost.
+	}
+}
+
+void Game::getCommand()
+{
+	cout << "Enter a command: ";
+	getline(cin, inputCommand);
+	system("cls");
+
+	// "mnn" format
+	if (((inputCommand[0] - '0') < 10))
+	{
+		if ((((inputCommand[1] - '0') < 2) && ((inputCommand[2] - '0') > 0) && (inputCommand[2] - '0') < 10) || (((inputCommand[1] - '0') == 2) && ((inputCommand[2] - '0') == 0)))
+		{
+			pileToRemove = (inputCommand[0] - '0');
+			numberToRemove = stoi(inputCommand.substr(1, 2));
+			if (rocksInPile[pileToRemove - 1] <= 0)
+			{
+				displayErrorMessage();
+			}
+			rocksInPile[pileToRemove - 1] -= numberToRemove;
+			checkForWinner();
+			displayGameBoard();
+		}
+		else
+		{
+			displayErrorMessage();
+		}
+	}
+	// "Ccomment" format
+	else if (inputCommand[0] == 'C')
+	{
+		// Send this comment to other user
+		cout << inputCommand.substr(1, 80) << endl;
+		displayGameBoard();
+	}
+	//"F" format
+	else if (inputCommand[0] == 'F')
+	{
+		// Forfeit
+	}
+	else
+	{
+		displayErrorMessage();
+	}
+}
