@@ -64,10 +64,16 @@ namespace NimCSharp
             public string IPAddress { get; set; }
         }
 
+        private void InviteToGame(object sender, RoutedEventArgs e)
+        {
+
+        }
+
         public void Invited()
         {
             ToggleChallengeVisibility(true);
         }
+
 
         private void AcceptGameInvite(object sender, RoutedEventArgs e)
         {
@@ -96,5 +102,7 @@ namespace NimCSharp
                 Challenged_Decline.Visibility = Visibility.Hidden;
             }
         }
+
+        
     }
 }

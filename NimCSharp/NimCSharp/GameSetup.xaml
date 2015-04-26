@@ -3,6 +3,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      DataContext="{Binding RelativeSource={RelativeSource Self}}"
       mc:Ignorable="d" 
       d:DesignHeight="400" d:DesignWidth="600"
 	Title="GameSetup">
@@ -42,12 +43,12 @@
     <Grid>
         <Label Content="SETUP THE GAME" Foreground="#FF2669BF" TextBlock.TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="/NimCSharp;component/#Intro" FontSize="40" Margin="40,0" Width="512"/>
         <Label x:Name="Challenged_Label" Content="How many Piles would you like? (between 3 - 9)" Foreground="#454545" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="15" Margin="44,53,44,0" Width="512"/>
-        <TextBox HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="3" VerticalAlignment="Top" Width="26" Margin="387,58,0,0" Padding="4,3,0,0"/>
+        <TextBox x:Name="NumOfPiles" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="3" VerticalAlignment="Top" Width="26" Margin="387,58,0,0" Padding="4,3,0,0" TextChanged="NumOfPiles_Changed"/>
         <ListView ItemsSource="{Binding PileCountCollection}"
                   Foreground="#454545"
                   HorizontalAlignment="Center" 
                   ScrollViewer.HorizontalScrollBarVisibility="Hidden"
-                  Width="520" Height="243" 
+                  Width="520" Height="229" 
                   VerticalAlignment="Top" 
                   Margin="40,88,40,0"
                   Style="{StaticResource ListBoxBorder}">
@@ -57,13 +58,27 @@
                     <Setter Property="Foreground" Value="#454545"/>
                 </Style>
             </ListView.ItemContainerStyle>
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Opponent Names" HeaderContainerStyle="{StaticResource ListBoxHeader}" Width="260" DisplayMemberBinding="{Binding OpponentName}"/>
-                    <GridViewColumn Header="IP Address" HeaderContainerStyle="{StaticResource ListBoxHeader}" Width="260" DisplayMemberBinding="{Binding IPAddress}"/>
-                </GridView>
-            </ListView.View>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="40"/>
+                            <ColumnDefinition Width="200"/>
+                            <ColumnDefinition Width="260"/>
+                        </Grid.ColumnDefinitions>
+                        
+                        <TextBlock Grid.Row="1" Grid.Column="0" Text=""/>
+                        <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding RockPile}"/>
+                        <TextBox Margin="10,0,0,0" Height="auto" Width="100" Grid.Row="1" Grid.Column="2" Text="{Binding Rocks}"
+                                 AcceptsReturn="True" TextWrapping="NoWrap" TextChanged="RocksNum_Changed"/>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
         </ListView>
-        <Button x:Name="Challenged_Accept" Style="{StaticResource Blue-Button}" Content="Start Game" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Margin="460,346,0,0" Click="StartGame"/>
+        <Button x:Name="Challenged_Accept" Style="{StaticResource Blue-Button}" Content="Start Game" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Margin="460,328,0,0" Click="StartGame"/>
     </Grid>
 </Page>

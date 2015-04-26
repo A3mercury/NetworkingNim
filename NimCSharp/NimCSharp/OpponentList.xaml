@@ -16,11 +16,6 @@
                         <Border Name="BorderButton" CornerRadius="10" BorderThickness="3" Background="#FF2669BF" BorderBrush="#FF0A2F5F">
                             <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsPressed" Value="true">
-                                <Setter Property="Background" Value="#1F57A0"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
@@ -35,11 +30,6 @@
                         <Border Name="BorderButton" CornerRadius="10" BorderThickness="3" Background="#BF262D" BorderBrush="#76171B">
                             <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsPressed" Value="true">
-                                <Setter Property="Background" Value="#1F57A0"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
@@ -66,13 +56,16 @@
     </Page.Resources>
     <Grid>
         <Label Content="CHOOSE A CHALLENGER" Foreground="#FF2669BF" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="/NimCSharp;component/#Intro" FontSize="40" Margin="40,0" Width="512"/>
+        <Label Content="Opponent Names" Foreground="#454545" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="15" Margin="40,49,44,0" Width="260"/>
+        <Label Content="IP Address" Foreground="#454545" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="15" Margin="302,49,0,0" Width="150"/>
+        
         <ListView ItemsSource="{Binding OpponentCollection}"
                   Foreground="#454545"
                   HorizontalAlignment="Center" 
                   ScrollViewer.HorizontalScrollBarVisibility="Hidden"
-                  Width="520" Height="219" 
+                  Width="520" Height="203" 
                   VerticalAlignment="Top" 
-                  Margin="40,63,40,0"
+                  Margin="40,79,40,0"
                   Style="{StaticResource ListBoxBorder}">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
@@ -80,12 +73,25 @@
                     <Setter Property="Foreground" Value="#454545"/>
                 </Style>
             </ListView.ItemContainerStyle>
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Opponent Names" HeaderContainerStyle="{StaticResource ListBoxHeader}" Width="260" DisplayMemberBinding="{Binding OpponentName}"/>
-                    <GridViewColumn Header="IP Address" HeaderContainerStyle="{StaticResource ListBoxHeader}" Width="260" DisplayMemberBinding="{Binding IPAddress}"/>
-                </GridView>
-            </ListView.View>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="0"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="260"/>
+                            <ColumnDefinition Width="125"/>
+                            <ColumnDefinition Width="100"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding OpponentName}"/>
+                        <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding IPAddress}"/>
+                        <Button Grid.Row="1" Grid.Column="2" Content="Invite" Style="{StaticResource Blue-Button}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="75" Click="InviteToGame"/>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
         </ListView>
         <Rectangle x:Name="Challenged" Fill="#E1D9D2" HorizontalAlignment="center" Stroke="#AEA69F" StrokeThickness="3" VerticalAlignment="Top" Height="52" Width="520" Margin="40,289,40,0" Grid.Row="1" Grid.Column="1"/>
         <Label x:Name="Challenged_Label" Content="'Opponent Username' has invited you to a game." Foreground="#454545" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="15" Margin="44,298,44,0" Width="512"/>
