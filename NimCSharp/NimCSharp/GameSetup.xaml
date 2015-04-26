@@ -41,9 +41,9 @@
         </Style>
     </Page.Resources>
     <Grid>
-        <Label Content="SETUP THE GAME" Foreground="#FF2669BF" TextBlock.TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="/NimCSharp;component/#Intro" FontSize="40" Margin="40,0" Width="512"/>
-        <Label x:Name="Challenged_Label" Content="How many Piles would you like? (between 3 - 9)" Foreground="#454545" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="15" Margin="44,53,44,0" Width="512"/>
-        <TextBox x:Name="NumOfPiles" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="3" VerticalAlignment="Top" Width="26" Margin="387,58,0,0" Padding="4,3,0,0" TextChanged="NumOfPiles_Changed"/>
+        <Label Content="SETUP THE GAME" Foreground="#FF2669BF" TextBlock.TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="/NimCSharp;component/#Intro" FontSize="40" Margin="113,0,118,0" Width="369"/>
+        <Label x:Name="NumberOfPilesLabel" Content="How many Piles would you like? (between 3 - 9)" Foreground="#454545" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="15" Margin="113,53,118,0" Width="369"/>
+        <TextBox x:Name="NumOfPiles" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="3" VerticalAlignment="Top" Width="26" Margin="456,58,0,0" Padding="4,3,0,0" TextChanged="NumOfPiles_Changed"/>
         <ListView ItemsSource="{Binding PileCountCollection}"
                   Foreground="#454545"
                   HorizontalAlignment="Center" 
@@ -70,7 +70,7 @@
                             <ColumnDefinition Width="200"/>
                             <ColumnDefinition Width="260"/>
                         </Grid.ColumnDefinitions>
-                        
+
                         <TextBlock Grid.Row="1" Grid.Column="0" Text=""/>
                         <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding RockPile}"/>
                         <TextBox Margin="10,0,0,0" Height="auto" Width="100" Grid.Row="1" Grid.Column="2" Text="{Binding Rocks}"
@@ -79,6 +79,6 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <Button x:Name="Challenged_Accept" Style="{StaticResource Blue-Button}" Content="Start Game" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Margin="460,328,0,0" Click="StartGame"/>
+        <Button x:Name="Start_Game" Style="{StaticResource Blue-Button}" Content="Start Game" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Margin="460,328,0,0" Click="StartGame"/>
     </Grid>
 </Page>

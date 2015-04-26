@@ -41,6 +41,6 @@
         <Label Content="NIM" Foreground="#FF2669BF" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="/NimCSharp;component/#Intro " FontSize="150" Margin="148,10,79,0" Width="365"/>
         <TextBox Style="{StaticResource TextBoxKey}" x:Name="UsernameBox" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Username" VerticalAlignment="Top" Width="153" Height="32" Margin="223, 224, 0, 0" FontSize="15" SelectionBrush="#FF2F97FF" Padding="1,3,1,1"/>
         <Button Style="{StaticResource Blue-Button}" x:Name="FindPlayersButton" Content="Find Players" HorizontalAlignment="Left" VerticalAlignment="Top" Width="153px" Height="34" Margin="223, 280, 0, 0" FontSize="15" Click="FindPlayers"/>
-        <Button Content="GameSetup Test Button" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Click="Button_Click" Margin="72,103,0,0"/>
+        <Button Content="Game Scene" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Click="Button_Click" Margin="72,103,0,0"/>
     </Grid>
 </Page>

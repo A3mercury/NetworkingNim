@@ -38,7 +38,7 @@ namespace NimCSharp
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             // go to the game setup page for testing
-            MainWindow._MainFrame.Navigate(new GameSetup());
+            MainWindow._MainFrame.Navigate(new GamePage());
         }
     }
 }
