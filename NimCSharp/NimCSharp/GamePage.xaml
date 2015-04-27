@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       DataContext="{Binding RelativeSource={RelativeSource Self}}"
       mc:Ignorable="d" 
-      d:DesignHeight="400" d:DesignWidth="600"
+      d:DesignHeight="500" d:DesignWidth="600"
 	Title="GamePage">
 
     <Page.Resources>
@@ -47,17 +47,21 @@
     </Page.Resources>
 
     <Grid>
-        <Label x:Name="PlayerTurn" Content="YOUR TURN" Foreground="#FF2669BF" TextBlock.TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="/NimCSharp;component/#Intro" FontSize="40" Margin="170,0,189,0" Width="241"/>
-        <Label x:Name="InformationLabel" TextBlock.TextAlignment="Center" Content="Click on the rocks you want to take away" Foreground="#454545" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="15" Margin="149,53,167,0" Width="284"/>
+
+        <Label x:Name="PlayerTurn" Content="YOUR TURN" Foreground="#FF2669BF" TextBlock.TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="/NimCSharp;component/#Intro" FontSize="40" Margin="170,-8,167,0" Width="263"/>
+        <Label x:Name="InformationLabel" TextBlock.TextAlignment="Center" Content="Click on the rocks you want to take away" Foreground="#454545" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="15" Margin="149,45,167,0" Width="284"/>
         <ListView ItemsSource="{Binding RockPerPileCollection}"
                   x:Name="RocksListView"
                   Background="#FFD9D0C7"
                   Foreground="#454545"
                   HorizontalAlignment="Center" 
                   ScrollViewer.HorizontalScrollBarVisibility="Hidden"
-                  Width="520" Height="229" 
+                  Width="520" Height="282" 
                   VerticalAlignment="Top" 
-                  Margin="40,88,40,0">
+                  Margin="40,80,40,0">
+            <ListBox.Resources>
+                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#E1D9D2"/>
+            </ListBox.Resources>
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="Height" Value="30"/>
@@ -72,77 +76,67 @@
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="100"/>
-                            <ColumnDefinition Width="400"/>
-                            <!--<ColumnDefinition Width="20"/>
-                            <ColumnDefinition Width="20"/>
-                            <ColumnDefinition Width="20"/>
-                            <ColumnDefinition Width="20"/>
-                            <ColumnDefinition Width="20"/>
-                            <ColumnDefinition Width="20"/>
-                            <ColumnDefinition Width="20"/>
-                            <ColumnDefinition Width="20"/>
-                            <ColumnDefinition Width="20"/>
-                            <ColumnDefinition Width="20"/>
-                            <ColumnDefinition Width="20"/>
-                            <ColumnDefinition Width="20"/>
-                            <ColumnDefinition Width="20"/>
-                            <ColumnDefinition Width="20"/>
-                            <ColumnDefinition Width="20"/>
-                            <ColumnDefinition Width="20"/>
-                            <ColumnDefinition Width="20"/>
-                            <ColumnDefinition Width="20"/>
-                            <ColumnDefinition Width="20"/>-->
+                            <ColumnDefinition Width="50"/>
+                            <ColumnDefinition Width="450"/>
                         </Grid.ColumnDefinitions>
 
-                        <TextBox Height="auto" Width="50" Grid.Row="1" Grid.Column="0" Text="{Binding NumberToTake}"
+                        <TextBox Height="25" Width="25" Grid.Row="1" Grid.Column="0" Text="{Binding NumberToTake}"
                                  AcceptsReturn="True" TextWrapping="NoWrap" TextChanged="NumToTake_Changed"/>
 
-                        <!--<Ellipse Visibility="Hidden"  Grid.Row="1" Grid.Column="1" Fill="#8C8070" HorizontalAlignment="Center" Height="20" 
+                        <StackPanel Name="RocksPanel" Orientation="Horizontal" Grid.Row="1" Grid.Column="1"  Width="auto" Height="50">
+                            <Ellipse Visibility="{Binding Vs1}" Fill="#8C8070" HorizontalAlignment="Center" Height="20" 
+                                 Stroke="#756A5C" StrokeThickness="3" VerticalAlignment="Center" Width="20" Margin="2,-20,0,0"/>
+                            <Ellipse Visibility="{Binding Vs2}" Fill="#8C8070" HorizontalAlignment="Center" Height="20" 
+                                 Stroke="#756A5C" StrokeThickness="3" VerticalAlignment="Center" Width="20" Margin="2,-20,0,0"/>
+                            <Ellipse Visibility="{Binding Vs3}" Fill="#8C8070" HorizontalAlignment="Center" Height="20" 
+                                 Stroke="#756A5C" StrokeThickness="3" VerticalAlignment="Center" Width="20" Margin="2,-20,0,0"/>
+                            <Ellipse Visibility="{Binding Vs4}" Fill="#8C8070" HorizontalAlignment="Center" Height="20" 
+                                 Stroke="#756A5C" StrokeThickness="3" VerticalAlignment="Center" Width="20" Margin="2,-20,0,0"/>
+                            <Ellipse Visibility="{Binding Vs5}" Fill="#8C8070" HorizontalAlignment="Center" Height="20" 
+                                 Stroke="#756A5C" StrokeThickness="3" VerticalAlignment="Center" Width="20" Margin="2,-20,0,0"/>
+                            <Ellipse Visibility="{Binding Vs6}" Fill="#8C8070" HorizontalAlignment="Center" Height="20" 
+                                 Stroke="#756A5C" StrokeThickness="3" VerticalAlignment="Center" Width="20" Margin="2,-20,0,0"/>
+                            <Ellipse Visibility="{Binding Vs7}" Fill="#8C8070" HorizontalAlignment="Center" Height="20" 
+                                 Stroke="#756A5C" StrokeThickness="3" VerticalAlignment="Center" Width="20" Margin="2,-20,0,0"/>
+                            <Ellipse Visibility="{Binding Vs8}" Fill="#8C8070" HorizontalAlignment="Center" Height="20" 
+                                 Stroke="#756A5C" StrokeThickness="3" VerticalAlignment="Center" Width="20" Margin="2,-20,0,0"/>
+                            <Ellipse Visibility="{Binding Vs9}" Fill="#8C8070" HorizontalAlignment="Center" Height="20" 
+                                 Stroke="#756A5C" StrokeThickness="3" VerticalAlignment="Center" Width="20" Margin="2,-20,0,0"/>
+                            <Ellipse Visibility="{Binding Vs10}" Fill="#8C8070" HorizontalAlignment="Center" Height="20" 
+                                 Stroke="#756A5C" StrokeThickness="3" VerticalAlignment="Center" Width="20" Margin="2,-20,0,0"/>
+                            <Ellipse Visibility="{Binding Vs11}" Fill="#8C8070" HorizontalAlignment="Center" Height="20" 
+                                 Stroke="#756A5C" StrokeThickness="3" VerticalAlignment="Center" Width="20" Margin="2,-20,0,0"/>
+                            <Ellipse Visibility="{Binding Vs12}" Fill="#8C8070" HorizontalAlignment="Center" Height="20" 
+                                 Stroke="#756A5C" StrokeThickness="3" VerticalAlignment="Center" Width="20" Margin="2,-20,0,0"/>
+                            <Ellipse Visibility="{Binding Vs13}" Fill="#8C8070" HorizontalAlignment="Center" Height="20" 
+                                 Stroke="#756A5C" StrokeThickness="3" VerticalAlignment="Center" Width="20" Margin="2,-20,0,0"/>
+                            <Ellipse Visibility="{Binding Vs14}" Fill="#8C8070" HorizontalAlignment="Center" Height="20" 
+                                 Stroke="#756A5C" StrokeThickness="3" VerticalAlignment="Center" Width="20" Margin="2,-20,0,0"/>
+                            <Ellipse Visibility="{Binding Vs15}" Fill="#8C8070" HorizontalAlignment="Center" Height="20" 
+                                 Stroke="#756A5C" StrokeThickness="3" VerticalAlignment="Center" Width="20" Margin="2,-20,0,0"/>
+                            <Ellipse Visibility="{Binding Vs16}" Fill="#8C8070" HorizontalAlignment="Center" Height="20" 
+                                 Stroke="#756A5C" StrokeThickness="3" VerticalAlignment="Center" Width="20" Margin="2,-20,0,0"/>
+                            <Ellipse Visibility="{Binding Vs17}" Fill="#8C8070" HorizontalAlignment="Center" Height="20" 
+                                 Stroke="#756A5C" StrokeThickness="3" VerticalAlignment="Center" Width="20" Margin="2,-20,0,0"/>
+                            <Ellipse Visibility="{Binding Vs18}" Fill="#8C8070" HorizontalAlignment="Center" Height="20" 
+                                 Stroke="#756A5C" StrokeThickness="3" VerticalAlignment="Center" Width="20" Margin="2,-20,0,0"/>
+                            <Ellipse Visibility="{Binding Vs19}" Fill="#8C8070" HorizontalAlignment="Center" Height="20" 
+                                 Stroke="#756A5C" StrokeThickness="3" VerticalAlignment="Center" Width="20" Margin="2,-20,0,0"/>
+                            <Ellipse Visibility="{Binding Vs20}" Fill="#8C8070" HorizontalAlignment="Center" Height="20" 
+                                 Stroke="#756A5C" StrokeThickness="3" VerticalAlignment="Center" Width="20" Margin="2,-20,0,0"/>
+                        </StackPanel>
+
+                        <!--<StackPanel Orientation="Horizontal">
+                            <Ellipse Visibility="Hidden" Fill="#8C8070" HorizontalAlignment="Center" Height="20" 
                                  Stroke="#756A5C" StrokeThickness="3" VerticalAlignment="Center" Width="20"/>
-                        <Ellipse Visibility="Hidden" Grid.Row="1" Grid.Column="2" Fill="#8C8070" HorizontalAlignment="Center" Height="20" 
+                            <Ellipse Visibility="Hidden" Fill="#8C8070" HorizontalAlignment="Center" Height="20" 
                                  Stroke="#756A5C" StrokeThickness="3" VerticalAlignment="Center" Width="20"/>
-                        <Ellipse Visibility="Hidden" Grid.Row="1" Grid.Column="3" Fill="#8C8070" HorizontalAlignment="Center" Height="20" 
-                                 Stroke="#756A5C" StrokeThickness="3" VerticalAlignment="Center" Width="20"/>
-                        <Ellipse Visibility="Hidden" Grid.Row="1" Grid.Column="4" Fill="#8C8070" HorizontalAlignment="Center" Height="20" 
-                                 Stroke="#756A5C" StrokeThickness="3" VerticalAlignment="Center" Width="20"/>
-                        <Ellipse Visibility="Hidden" Grid.Row="1" Grid.Column="5" Fill="#8C8070" HorizontalAlignment="Center" Height="20" 
-                                 Stroke="#756A5C" StrokeThickness="3" VerticalAlignment="Center" Width="20"/>
-                        <Ellipse Visibility="Hidden" Grid.Row="1" Grid.Column="6" Fill="#8C8070" HorizontalAlignment="Center" Height="20" 
-                                 Stroke="#756A5C" StrokeThickness="3" VerticalAlignment="Center" Width="20"/>
-                        <Ellipse Visibility="Hidden" Grid.Row="1" Grid.Column="7" Fill="#8C8070" HorizontalAlignment="Center" Height="20" 
-                                 Stroke="#756A5C" StrokeThickness="3" VerticalAlignment="Center" Width="20"/>
-                        <Ellipse Visibility="Hidden" Grid.Row="1" Grid.Column="8" Fill="#8C8070" HorizontalAlignment="Center" Height="20" 
-                                 Stroke="#756A5C" StrokeThickness="3" VerticalAlignment="Center" Width="20"/>
-                        <Ellipse Visibility="Hidden" Grid.Row="1" Grid.Column="9" Fill="#8C8070" HorizontalAlignment="Center" Height="20" 
-                                 Stroke="#756A5C" StrokeThickness="3" VerticalAlignment="Center" Width="20"/>
-                        <Ellipse Visibility="Hidden" Grid.Row="1" Grid.Column="10" Fill="#8C8070" HorizontalAlignment="Center" Height="20" 
-                                 Stroke="#756A5C" StrokeThickness="3" VerticalAlignment="Center" Width="20"/>
-                        <Ellipse Visibility="Hidden" Grid.Row="1" Grid.Column="11" Fill="#8C8070" HorizontalAlignment="Center" Height="20" 
-                                 Stroke="#756A5C" StrokeThickness="3" VerticalAlignment="Center" Width="20"/>
-                        <Ellipse Visibility="Hidden" Grid.Row="1" Grid.Column="12" Fill="#8C8070" HorizontalAlignment="Center" Height="20" 
-                                 Stroke="#756A5C" StrokeThickness="3" VerticalAlignment="Center" Width="20"/>
-                        <Ellipse Visibility="Hidden" Grid.Row="1" Grid.Column="13" Fill="#8C8070" HorizontalAlignment="Center" Height="20" 
-                                 Stroke="#756A5C" StrokeThickness="3" VerticalAlignment="Center" Width="20"/>
-                        <Ellipse Visibility="Hidden" Grid.Row="1" Grid.Column="14" Fill="#8C8070" HorizontalAlignment="Center" Height="20" 
-                                 Stroke="#756A5C" StrokeThickness="3" VerticalAlignment="Center" Width="20"/>
-                        <Ellipse Visibility="Hidden" Grid.Row="1" Grid.Column="15" Fill="#8C8070" HorizontalAlignment="Center" Height="20" 
-                                 Stroke="#756A5C" StrokeThickness="3" VerticalAlignment="Center" Width="20"/>
-                        <Ellipse Visibility="Hidden" Grid.Row="1" Grid.Column="16" Fill="#8C8070" HorizontalAlignment="Center" Height="20" 
-                                 Stroke="#756A5C" StrokeThickness="3" VerticalAlignment="Center" Width="20"/>
-                        <Ellipse Visibility="Hidden" Grid.Row="1" Grid.Column="17" Fill="#8C8070" HorizontalAlignment="Center" Height="20" 
-                                 Stroke="#756A5C" StrokeThickness="3" VerticalAlignment="Center" Width="20"/>
-                        <Ellipse Visibility="Hidden" Grid.Row="1" Grid.Column="18" Fill="#8C8070" HorizontalAlignment="Center" Height="20" 
-                                 Stroke="#756A5C" StrokeThickness="3" VerticalAlignment="Center" Width="20"/>
-                        <Ellipse Visibility="Hidden" Grid.Row="1" Grid.Column="19" Fill="#8C8070" HorizontalAlignment="Center" Height="20" 
-                                 Stroke="#756A5C" StrokeThickness="3" VerticalAlignment="Center" Width="20"/>
-                        <Ellipse Visibility="Hidden" Grid.Row="1" Grid.Column="20" Fill="#8C8070" HorizontalAlignment="Center" Height="20" 
-                                 Stroke="#756A5C" StrokeThickness="3" VerticalAlignment="Center" Width="20"/>-->
-                        
+                        </StackPanel>-->
+
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <Button x:Name="EndTurn" Style="{StaticResource Blue-Button}" Content="End Turn" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Margin="460,328,0,0" Click="EndTurn_Clicked"/>
+        <Button x:Name="EndTurn" Style="{StaticResource Blue-Button}" Content="End Turn" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Margin="460,376,0,0" Click="EndTurn_Clicked"/>
     </Grid>
 </Page>

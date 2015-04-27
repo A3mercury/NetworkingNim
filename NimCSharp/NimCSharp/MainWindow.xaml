@@ -3,8 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="MainWindow" 
         Height="400" Width="600" 
-        MaxWidth="600" MaxHeight="400" 
-        MinWidth="600" MinHeight="400"
+        MaxWidth="600" MaxHeight="500" 
+        MinWidth="600" MinHeight="500"
         Background="#FFD9D0C7">
     <Grid>
         <Frame x:Name="_MainWindowFrame" NavigationUIVisibility="Hidden" Width="600" Height="400" />

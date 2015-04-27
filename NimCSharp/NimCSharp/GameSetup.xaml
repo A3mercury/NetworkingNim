@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       DataContext="{Binding RelativeSource={RelativeSource Self}}"
       mc:Ignorable="d" 
-      d:DesignHeight="400" d:DesignWidth="600"
+      d:DesignHeight="500" d:DesignWidth="600"
 	Title="GameSetup">
 
     <Page.Resources>
@@ -45,10 +45,11 @@
         <Label x:Name="NumberOfPilesLabel" Content="How many Piles would you like? (between 3 - 9)" Foreground="#454545" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="15" Margin="113,53,118,0" Width="369"/>
         <TextBox x:Name="NumOfPiles" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="3" VerticalAlignment="Top" Width="26" Margin="456,58,0,0" Padding="4,3,0,0" TextChanged="NumOfPiles_Changed"/>
         <ListView ItemsSource="{Binding PileCountCollection}"
+                  Name="PileCountCollectionList"
                   Foreground="#454545"
                   HorizontalAlignment="Center" 
                   ScrollViewer.HorizontalScrollBarVisibility="Hidden"
-                  Width="520" Height="229" 
+                  Width="520" Height="265" 
                   VerticalAlignment="Top" 
                   Margin="40,88,40,0"
                   Style="{StaticResource ListBoxBorder}">
@@ -79,6 +80,6 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <Button x:Name="Start_Game" Style="{StaticResource Blue-Button}" Content="Start Game" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Margin="460,328,0,0" Click="StartGame"/>
+        <Button x:Name="Start_Game" Style="{StaticResource Blue-Button}" Content="Start Game" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Margin="460,367,0,0" Click="StartGame"/>
     </Grid>
 </Page>

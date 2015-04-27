@@ -4,7 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       mc:Ignorable="d" 
-      d:DesignHeight="400" d:DesignWidth="600"
+      d:DesignHeight="500" d:DesignWidth="600"
 	Title="WaitingOnOpponent">
     <Page.Resources>
         <Style x:Key="Red-Button" TargetType="Button">
@@ -24,8 +24,8 @@
     </Page.Resources>
 
     <Grid>
-        <Rectangle Fill="#E1D9D2" HorizontalAlignment="center" Stroke="#AEA69F" StrokeThickness="3" VerticalAlignment="Top" Height="52" Width="520" Margin="40,162,40,0"/>
-        <Label Content="Waiting on 'Opponent Username' to setup the game." Foreground="#454545" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="15" Margin="58,171,173,0" Width="369"/>
-        <Button Style="{StaticResource Red-Button}" Content="Cancel" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="450,174,0,0" Click="CancelGame"/>
+        <Rectangle Fill="#E1D9D2" HorizontalAlignment="center" Stroke="#AEA69F" StrokeThickness="3" VerticalAlignment="Top" Height="52" Width="520" Margin="40,200,40,0"/>
+        <Label Content="Waiting on 'Opponent Username' to setup the game." Foreground="#454545" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="15" Margin="58,209,173,0" Width="369"/>
+        <Button Style="{StaticResource Red-Button}" Content="Cancel" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="450,212,0,0" Click="CancelGame" RenderTransformOrigin="0.5,0.5"/>
     </Grid>
 </Page>

@@ -26,27 +26,6 @@ namespace NimCSharp
 
         public GameSetup()
         {
-            //RPData.Add(new RockPileData
-            //{
-            //    RockPile = "Number of Rocks for Pile " + 1 + ": (1 - 20)",
-            //    Rocks = 1
-            //});
-            //RPData.Add(new RockPileData
-            //{
-            //    RockPile = "Number of Rocks for Pile " + 2 + ": (1 - 20)",
-            //    Rocks = 1
-            //});
-            //RPData.Add(new RockPileData
-            //{
-            //    RockPile = "Number of Rocks for Pile " + 3 + ": (1 - 20)",
-            //    Rocks = 1
-            //});
-            //RPData.Add(new RockPileData
-            //{
-            //    RockPile = "Number of Rocks for Pile " + 4 + ": (1 - 20)",
-            //    Rocks = 1
-            //});
-
             InitializeComponent();
         }
 
@@ -57,7 +36,33 @@ namespace NimCSharp
 
         private void StartGame(object sender, RoutedEventArgs e)
         {
+            if(DataIsValid())
+                MainWindow._MainFrame.Navigate(new GamePage(RPData));
+        }
 
+        private bool DataIsValid()
+        {
+            bool result = true;
+
+            int parsed;
+            if(!int.TryParse(NumOfPiles.Text, out parsed))
+                result = false;
+            else
+            {
+                if (parsed < 3 || parsed > 9)
+                    result = false;
+                else
+                {
+                    foreach (RockPileData RPD in RPData)
+                    {
+                        if (RPD.Rocks < 0 && RPD.Rocks > 20)
+                            result = false;
+                    }
+                }
+
+            }
+
+            return result;
         }
 
         private void NumOfPiles_Changed(object sender, TextChangedEventArgs e)
@@ -85,7 +90,8 @@ namespace NimCSharp
                             RPData.Add(new RockPileData
                             {
                                 RockPile = "Number of Rocks for Pile " + (num + 1) + ": (1 - 20)",
-                                Rocks = 1
+                                Rocks = 0,
+                                Location = i
                             });
                         }
                     }
@@ -96,10 +102,11 @@ namespace NimCSharp
         {
             TextBox tb = sender as TextBox;
 
+            // checks to see if it is a valid number
             int num = 0;
             if(int.TryParse(tb.Text, out num))
             {
-                if (num < 1 || num > 20)
+                if (num < 0 || num > 20)
                     tb.Foreground = Brushes.Red;
                 else
                     tb.Foreground = Brushes.Black;
@@ -111,18 +118,6 @@ namespace NimCSharp
     {
         public string RockPile { get; set; }
         public int Rocks { get; set; }
-
-        //public RockPileData(int PileNum)
-        //{
-        //    Rocks = new TextBox();
-        //    Rocks.Width = 100;
-        //    Rocks.Height = 20;
-        //    //RockPile = "Number of Rocks for Pile " + PileNum + ": ";
-        //}
-
-        //public int RockTextBoxValue()
-        //{
-        //    return int.Parse(Rocks.Text);
-        //}
+        public int Location { get; set; }
     }
 }

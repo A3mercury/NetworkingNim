@@ -66,7 +66,7 @@ namespace NimCSharp
 
         private void InviteToGame(object sender, RoutedEventArgs e)
         {
-
+            MainWindow._MainFrame.Navigate(new GameSetup());
         }
 
         public void Invited()
